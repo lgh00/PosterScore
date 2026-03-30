@@ -3,14 +3,18 @@ import argparse
 from dotenv import load_dotenv
 from pathlib import Path
 
-env_path = Path(__file__).parent / ".env"
+from utils.model_config import get_model_config
+
+env_path = Path(__file__).parent.parent / ".env"
 load_dotenv(env_path, override=True)
 
 def extract_txt_figure(paper_path: str, model: str):
     """
     Extract text and figure from the paper pdf file.
     """
-    pass
+    config = get_model_config(model)
+    print(config)
+    return 0
 
 
 def main():
@@ -21,7 +25,7 @@ def main():
     args = parser.parse_args()
     # check .env file
     if not env_path.exists():
-        raise ValueError(f"Please set .env file {env_path}")
+        raise ValueError(f"Please create .env file in {env_path}")
     # check paper path
     if not Path(args.paper_path).exists():
         raise ValueError(f"Please set paper path {args.paper_path}")
@@ -38,7 +42,6 @@ def main():
         raise ValueError(f"Please set {need_key}")
     
     extract_txt_figure(args.paper_path, args.model)
-    print(args)
 
 if __name__ == "__main__":
     main()
