@@ -1,0 +1,58 @@
+{
+  "_page_2_Figure_8.jpeg": {
+    "block_id": "/page/2/Figure/8",
+    "block_type": "Figure",
+    "captions": [
+      "Figure 1: Policy network architecture.\n"
+    ],
+    "page": 2
+  },
+  "_page_4_Figure_0.jpeg": {
+    "block_id": "/page/4/Figure/0",
+    "block_type": "Figure",
+    "captions": [
+      "Figure 2: HAGS policy network architecture.\n"
+    ],
+    "page": 4
+  },
+  "_page_4_Table_2.jpeg": {
+    "block_id": "/page/4/Table/2",
+    "block_type": "Table",
+    "captions": [
+      "Table 1: ANT as a function of search budget for uniform query cost; average eviction rate is 5%.\n"
+    ],
+    "page": 4
+  },
+  "_page_4_Table_4.jpeg": {
+    "block_id": "/page/4/Table/4",
+    "block_type": "Table",
+    "captions": [
+      "Table 2: ANT as a function of search budget for uniform query cost; average eviction rate is 10%.\n"
+    ],
+    "page": 4
+  },
+  "_page_6_Table_0.jpeg": {
+    "block_id": "/page/6/Table/0",
+    "block_type": "Table",
+    "captions": [
+      "Table 3: ANT as a function of budget for distance-based query cost; average eviction rate is 5%.\n"
+    ],
+    "page": 6
+  },
+  "_page_6_Table_2.jpeg": {
+    "block_id": "/page/6/Table/2",
+    "block_type": "Table",
+    "captions": [
+      "Table 4: ANT as a function of budget for distance-based query cost; average eviction rate is 10%.\n"
+    ],
+    "page": 6
+  },
+  "_page_6_Table_4.jpeg": {
+    "block_id": "/page/6/Table/4",
+    "block_type": "Table",
+    "captions": [
+      "Table 5: Ablation Study Average Number of Targets (ANT) Found by Search Task Parameters and Solution Method\n"
+    ],
+    "page": 6
+  }
+}
