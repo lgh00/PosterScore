@@ -16,7 +16,8 @@ from marker.output import text_from_rendered
 from marker.schema import BlockTypes
 from jinja2 import Template
 
-from utils.model_config import get_model_config
+from utils.model_config import get_model_config, extract_json
+from utils.model_config import LangGraphAgent, AgentResponse
 
 env_path = Path(__file__).parent.parent / ".env"
 load_dotenv(env_path, override=True)
@@ -29,7 +30,10 @@ def extract_txt_figure(paper_path: str, output_dir: Path):
     raw_text, raw_result = extract_raw_text(paper_path, output_dir / "content")
 
     figures, tables = extract_assets(raw_result, output_dir / "assets")
-    return 0
+    clean_pattern = re.compile(r"<!--[\s\S]*?-->")
+    raw_text = clean_pattern.sub("", raw_text)
+    raw_text = preprocess_paper_markdown(raw_text)
+    return raw_text
 
 def extract_raw_text(pdf_path: str, content_dir: Path) -> Tuple[str, Any]:
     #log_agent_info(self.name, "converting pdf to raw text")
@@ -202,6 +206,39 @@ def preprocess_paper_markdown(text: str):
                     continue
         return "\n".join(processed_lines)
 
+def score_poster(poster_path: str, raw_text: str, model: str, output_dir: Path):
+    """
+    Score the poster.
+    """
+    # load model config
+    model_config = get_model_config(model)
+    # create langgraph agent
+    agent = LangGraphAgent("You are a poster scorer.", model_config)
+    # reset agent
+    agent.reset()
+    # score poster
+    score_prompt = open("config/prompt/score_the_poster.txt", "r", encoding="utf-8").read()
+    with open("config/prompt/score_render_poster_standard.json", 'r', encoding='utf-8') as f:
+        score_standard = json.load(f)
+    template_data = {
+        "raw_text": raw_text,
+        "score_standard": score_standard
+    }
+    score_prompt = Template(score_prompt).render(**template_data)
+
+    with open(poster_path, "rb") as f:
+        img_data = base64.b64encode(f.read()).decode()
+    message = [
+        {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{img_data}"}},
+        {"type": "text", "text": score_prompt}
+    ]
+    response = agent.step(json.dumps(message))
+    result = extract_json(response.content)
+    with open(output_dir / "score.json", 'w', encoding='utf-8') as f:
+        json.dump(result, f, indent=2, ensure_ascii=False)
+    return result
+
+
 def main():
     parser = argparse.ArgumentParser(description = "PosterScore: A tool to score posters")
     parser.add_argument("--paper_path", type=str, required=True, help="Path to the paper pdf file")
@@ -228,10 +265,14 @@ def main():
         raise ValueError(f"Please set {need_key}")
     
     # set output directory
-    output_dir = Path(args.paper_path).parent.parent / "output" / poster_name
+    output_dir = Path(args.paper_path).parent.parent.parent / "output" / poster_name
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    extract_txt_figure(args.paper_path, output_dir)
+    raw_text = extract_txt_figure(args.paper_path, output_dir)
+    
+    # score the poster
+    result = score_poster(args.poster_path, raw_text, args.model, output_dir)
+    print(result)
 
 
 if __name__ == "__main__":

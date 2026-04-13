@@ -1,14 +1,14 @@
 {
   "1": {
     "caption": "Figure 1: Policy network architecture.\n",
-    "path": "data\\output\\Active_Geospatial_Search_for_Efficient_Tenant_Eviction_Outreach\\assets\\figure-1.png",
+    "path": "output\\Active_Geospatial_Search_for_Efficient_Tenant_Eviction_Outreach\\assets\\figure-1.png",
     "width": 674,
     "height": 274,
     "aspect": 2.45985401459854
   },
   "2": {
     "caption": "Figure 2: HAGS policy network architecture.\n",
-    "path": "data\\output\\Active_Geospatial_Search_for_Efficient_Tenant_Eviction_Outreach\\assets\\figure-2.png",
+    "path": "output\\Active_Geospatial_Search_for_Efficient_Tenant_Eviction_Outreach\\assets\\figure-2.png",
     "width": 1232,
     "height": 433,
     "aspect": 2.8452655889145495

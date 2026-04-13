@@ -1,35 +1,35 @@
 {
   "1": {
     "caption": "Table 1: ANT as a function of search budget for uniform query cost; average eviction rate is 5%.\n",
-    "path": "data\\output\\Active_Geospatial_Search_for_Efficient_Tenant_Eviction_Outreach\\assets\\table-1.png",
+    "path": "output\\Active_Geospatial_Search_for_Efficient_Tenant_Eviction_Outreach\\assets\\table-1.png",
     "width": 1050,
     "height": 243,
     "aspect": 4.320987654320987
   },
   "2": {
     "caption": "Table 2: ANT as a function of search budget for uniform query cost; average eviction rate is 10%.\n",
-    "path": "data\\output\\Active_Geospatial_Search_for_Efficient_Tenant_Eviction_Outreach\\assets\\table-2.png",
+    "path": "output\\Active_Geospatial_Search_for_Efficient_Tenant_Eviction_Outreach\\assets\\table-2.png",
     "width": 1048,
     "height": 249,
     "aspect": 4.208835341365462
   },
   "3": {
     "caption": "Table 3: ANT as a function of budget for distance-based query cost; average eviction rate is 5%.\n",
-    "path": "data\\output\\Active_Geospatial_Search_for_Efficient_Tenant_Eviction_Outreach\\assets\\table-3.png",
+    "path": "output\\Active_Geospatial_Search_for_Efficient_Tenant_Eviction_Outreach\\assets\\table-3.png",
     "width": 1051,
     "height": 242,
     "aspect": 4.3429752066115705
   },
   "4": {
     "caption": "Table 4: ANT as a function of budget for distance-based query cost; average eviction rate is 10%.\n",
-    "path": "data\\output\\Active_Geospatial_Search_for_Efficient_Tenant_Eviction_Outreach\\assets\\table-4.png",
+    "path": "output\\Active_Geospatial_Search_for_Efficient_Tenant_Eviction_Outreach\\assets\\table-4.png",
     "width": 1052,
     "height": 243,
     "aspect": 4.329218106995885
   },
   "5": {
     "caption": "Table 5: Ablation Study Average Number of Targets (ANT) Found by Search Task Parameters and Solution Method\n",
-    "path": "data\\output\\Active_Geospatial_Search_for_Efficient_Tenant_Eviction_Outreach\\assets\\table-5.png",
+    "path": "output\\Active_Geospatial_Search_for_Efficient_Tenant_Eviction_Outreach\\assets\\table-5.png",
     "width": 1269,
     "height": 177,
     "aspect": 7.169491525423729
