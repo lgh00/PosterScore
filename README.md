@@ -7,5 +7,5 @@
   * 示例：data/Active_Geospatial_Search_for_Efficient_Tenant_Eviction_Outreach/poster.png
 ## 使用方法
 ```bash
-python src/main.py --paper_path data/Active_Geospatial_Search_for_Efficient_Tenant_Eviction_Outreach/paper.pdf --poster_path data/Active_Geospatial_Search_for_Efficient_Tenant_Eviction_Outreach/poster.png --model doubao-seed-2-0-lite-260215
+python src/main.py --paper_path data/Active_Geospatial_Search_for_Efficient_Tenant_Eviction_Outreach/paper.pdf --poster_path data/Active_Geospatial_Search_for_Efficient_Tenant_Eviction_Outreach/poster.png --model qwen3-vl-plus
 ```

@@ -2,6 +2,7 @@ import os
 import sys
 import re
 import json
+import base64
 import argparse
 from dotenv import load_dotenv
 from pathlib import Path
@@ -218,16 +219,16 @@ def score_poster(poster_path: str, raw_text: str, model: str, output_dir: Path):
     agent.reset()
     # score poster
     score_prompt = open("config/prompt/score_the_poster.txt", "r", encoding="utf-8").read()
-    with open("config/prompt/score_render_poster_standard.json", 'r', encoding='utf-8') as f:
+    with open("config/prompt/score_render_poster_standards.json", 'r', encoding='utf-8') as f:
         score_standard = json.load(f)
     template_data = {
         "raw_text": raw_text,
         "score_standard": score_standard
     }
     score_prompt = Template(score_prompt).render(**template_data)
-
     with open(poster_path, "rb") as f:
         img_data = base64.b64encode(f.read()).decode()
+
     message = [
         {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{img_data}"}},
         {"type": "text", "text": score_prompt}

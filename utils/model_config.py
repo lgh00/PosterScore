@@ -197,7 +197,6 @@ class LangGraphAgent:
                 return self._step_vision(msg_data)
         except:
             pass
-        
         # regular text call
         self.history.append(HumanMessage(content=message))
         
@@ -242,6 +241,51 @@ class LangGraphAgent:
             raise
         
         self.history.append(response)
+
+        return AgentResponse(response.content, input_tokens, output_tokens)
+
+    def _step_vision(self, messages: List[Dict]) -> 'AgentResponse':
+        """handle vision model calls"""
+        # convert to proper format
+        content = []
+        for msg in messages:
+            if msg.get("type") == "text":
+                content.append({"type": "text", "text": msg["text"]})
+            elif msg.get("type") == "image_url":
+                content.append({
+                    "type": "image_url",
+                    "image_url": msg["image_url"]
+                })
+        human_msg = HumanMessage(content=content)
+        
+        # get response
+        input_tokens, output_tokens = 0, 0
+        try:
+            if self.config.provider in ('openai', 'zhipu'):
+                with get_openai_callback() as cb:
+                    response = self.model.invoke([self.history[0], human_msg])
+                    input_tokens = cb.prompt_tokens or 0
+                    output_tokens = cb.completion_tokens or 0
+            else:
+                response = self.model.invoke([self.history[0], human_msg])
+                # estimate tokens
+                input_tokens = 200  # rough estimate for image
+                output_tokens = len(response.content.split()) * 1.3
+        except Exception as e:
+            error_msg = f"vision model call failed: {e}"
+            print(error_msg)
+            
+            # provide more specific error information for vision calls
+            if "timeout" in str(e).lower() or "read operation timed out" in str(e).lower():
+                print(f"⚠️  Vision timeout error detected for {self.config.provider} {self.config.model_name}")
+                print("💡 Vision calls may take longer due to image processing")
+                print("   - Consider using a different vision model")
+                print("   - Check image size and format")
+            elif "rate limit" in str(e).lower():
+                print(f"⚠️  Rate limit exceeded for vision calls on {self.config.provider}")
+            elif "authentication" in str(e).lower() or "api key" in str(e).lower():
+                print(f"⚠️  Authentication error for vision calls on {self.config.provider}")
+            raise
 
         return AgentResponse(response.content, input_tokens, output_tokens)
 
